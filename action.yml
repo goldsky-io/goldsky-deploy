@@ -17,16 +17,16 @@ inputs:
 outputs:
   success:
     description: "The Success/Failure of the action"
-    value: ${{ steps.deploy.outputs.success }}
+    value: ${{ steps.deploy-subgraph.outputs.success }}
 runs:
   using: "composite"
   steps:
-    - id: Install CLI
+    - id: install-cli
       run: curl https://goldsky.com | sh
       shell: bash
-    - id: Build Subgraph
+    - id: build-subgraph
       run: npx graph build
       shell: bash
-    - id: Deploy Subgraph
-      run: goldsky subgraph deploy --token ${{secrets.api_key}} ${{inputs.subgraph_name}}/${git rev-parse --short HEAD) --path ${{inputs.path}}
+    - id: deploy-subgraph
+      run: goldsky subgraph deploy --token ${{inputs.api_key}} ${{inputs.subgraph_name}}/${git rev-parse --short HEAD) --path ${{inputs.path}}
       shell: bash
