@@ -1,0 +1,32 @@
+name: "Goldsky Deploy"
+description: "Deploy a subgraph to Goldsky"
+branding:
+  icon: "upload-cloud"
+  color: "blue"
+inputs:
+  api_key:
+    description: "Your Goldsky API key. This should be populated from your secrets."
+    required: true
+  subgraph_name:
+    description: "The name of the subgraph"
+    required: true
+  path:
+      description: "The path to the subgraph.yaml file"
+      required: true
+      default: "./subgraph.yaml"
+outputs:
+  success:
+    description: "The Success/Failure of the action"
+    value: ${{ steps.deploy.outputs.success }}
+runs:
+  using: "composite"
+  steps:
+    - id: Install CLI
+      run: curl https://goldsky.com | sh
+      shell: bash
+    - id: Build Subgraph
+      run: npx graph build
+      shell: bash
+    - id: Deploy Subgraph
+      run: goldsky subgraph deploy --token ${{secrets.api_key}} ${{inputs.subgraph_name}}/${git rev-parse --short HEAD) --path ${{inputs.path}}
+      shell: bash
