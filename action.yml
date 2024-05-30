@@ -22,7 +22,7 @@ runs:
   using: "composite"
   steps:
     - id: install-cli
-      run: curl https://goldsky.com | sh
+      run: curl https://goldsky.com | sh -s -- -f
       shell: bash
     - id: build-subgraph
       run: npx graph build
