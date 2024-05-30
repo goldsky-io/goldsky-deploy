@@ -30,5 +30,5 @@ runs:
 #      run: npx graph build
 #      shell: bash
     - id: deploy-subgraph
-      run: goldsky subgraph deploy --token ${{inputs.api_key}} ${{inputs.subgraph_name}}/${git rev-parse --short HEAD) --path ${{inputs.path}}
+      run: goldsky subgraph deploy --token ${{inputs.api_key}} ${{inputs.subgraph_name}}/$(git rev-parse --short HEAD) --path ${{inputs.path}}
       shell: bash
