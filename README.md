@@ -41,3 +41,5 @@ There are 3 parameters to the action:
 1. **api_key**: Required. The API key you got from Goldsky. This is best stored as a repository secret and referenced as `${{ secrets.GOLDSKY_API_KEY }}`.
 2. **subgraph_name**: Required. The name of the subgraph you are deploying. This will be displayed in the Goldsky UI.
 3. **path**: Optional. The path to the subgraph you are deploying - this can either point directly to the `build` directory or to the parent of the `build` directory. Defaults to `.`.
+
+Note that the version of the subgraph that's deployed will be the short SHA of the commit from which the action was invoked.
